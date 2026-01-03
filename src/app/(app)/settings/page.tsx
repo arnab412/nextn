@@ -3,7 +3,16 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useAdmin } from "@/hooks/use-admin";
 import { Badge } from "@/components/ui/badge";
-import { ShieldCheck, User } from "lucide-react";
+import { ShieldCheck, User, Trash2, Plus } from "lucide-react";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import { useFirestore } from "@/firebase";
+import { doc, setDoc, deleteDoc } from "firebase/firestore";
+import { useToast } from "@/hooks/use-toast";
+import { Label } from "@/components/ui/label";
+import { useAdminsList } from "@/hooks/use-admins-list";
 
 export default function SettingsPage() {
   const { isAdmin, user } = useAdmin();
