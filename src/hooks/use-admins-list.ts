@@ -1,8 +1,8 @@
 'use client';
 
-import { useFirestore } from '@/firebase';
+import { FirebaseContext } from '@/firebase/provider';
 import { collection, onSnapshot, query } from 'firebase/firestore';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 export interface AdminUser {
     email: string;
@@ -10,17 +10,25 @@ export interface AdminUser {
 }
 
 export const useAdminsList = () => {
-    const db = useFirestore();
+    // Access context directly to avoid throwing if services aren't ready (e.g. during SSR)
+    const context = useContext(FirebaseContext);
+
+    // Default state
     const [admins, setAdmins] = useState<AdminUser[]>([]);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        if (!db) return;
+        // Safe check for services
+        if (!context?.areServicesAvailable || !context?.firestore) {
+            return;
+        }
 
+        const db = context.firestore;
         const q = query(collection(db, 'admins'));
+
         const unsubscribe = onSnapshot(q, (snapshot) => {
             const adminsData = snapshot.docs.map(doc => ({
-                email: doc.id, // We use email as doc ID
+                email: doc.id,
                 ...doc.data()
             })) as AdminUser[];
             setAdmins(adminsData);
@@ -31,7 +39,7 @@ export const useAdminsList = () => {
         });
 
         return () => unsubscribe();
-    }, [db]);
+    }, [context]);
 
     return { admins, isLoading };
 };
