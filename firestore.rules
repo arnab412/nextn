@@ -77,6 +77,14 @@ service cloud.firestore {
       allow read, write: if isSignedIn();
     }
 
+    /**
+     * @description Manages admin roles.
+     * @path /admins/{email}
+     */
+    match /admins/{email} {
+      allow read, write: if isSignedIn();
+    }
+
     // The roles_admin collection is no longer needed with this simplified ruleset.
     // If you re-introduce roles, you would add rules for /roles_admin/{userId} here.
   }
