@@ -23,9 +23,9 @@ export default function DashboardClient() {
   } = useCashRegister();
 
   const transactions = useMemo(() => {
-     const combined: Transaction[] = [
-        ...incomes.map(i => ({...i, type: 'income', transactionTime: (i.timestamp as Timestamp)?.toDate() }) as Transaction),
-        ...expenses.map(e => ({...e, type: 'expense', transactionTime: (e.timestamp as Timestamp)?.toDate() }) as Transaction)
+    const combined: Transaction[] = [
+      ...incomes.map(i => ({ ...i, type: 'income', transactionTime: (i.timestamp as Timestamp)?.toDate() }) as Transaction),
+      ...expenses.map(e => ({ ...e, type: 'expense', transactionTime: (e.timestamp as Timestamp)?.toDate() }) as Transaction)
     ];
     return combined
       .filter(tx => tx.transactionTime)
@@ -44,22 +44,20 @@ export default function DashboardClient() {
         totalExpense={totalExpense}
         systemBalance={systemBalance}
       />
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-start">
         <div className="lg:col-span-1">
           <QuickCollectionForm />
         </div>
         <div className="lg:col-span-1">
-          <RecentTransactions transactions={transactions} />
-        </div>
-        <div className="lg:col-span-1">
           <QuickExpenseForm />
         </div>
-      </div>
-       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-        <div className="lg:col-span-2" />
         <div className="lg:col-span-1">
-            <DenominationCalculator />
+          <DenominationCalculator />
         </div>
+      </div>
+
+      <div className="w-full">
+        <RecentTransactions transactions={transactions} />
       </div>
     </div>
   );
@@ -68,24 +66,23 @@ export default function DashboardClient() {
 function DashboardSkeleton() {
   return (
     <div className="flex flex-col gap-8">
-       <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between">
         <div />
         <Skeleton className="h-10 w-40" />
       </div>
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        <Skeleton className="h-32" />
+      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         <Skeleton className="h-32" />
         <Skeleton className="h-32" />
         <Skeleton className="h-32" />
       </div>
-       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
-        <div className="lg:col-span-2 space-y-4">
-          <Skeleton className="h-8 w-64" />
-          <Skeleton className="h-64 w-full" />
-        </div>
-        <div className="lg:col-span-1">
-           <Skeleton className="h-96 w-full" />
-        </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-start">
+        <Skeleton className="h-64 w-full" />
+        <Skeleton className="h-64 w-full" />
+        <Skeleton className="h-96 w-full" />
+      </div>
+      <div className="w-full space-y-4">
+        <Skeleton className="h-8 w-64" />
+        <Skeleton className="h-96 w-full" />
       </div>
     </div>
   );

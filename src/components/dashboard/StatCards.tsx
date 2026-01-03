@@ -36,7 +36,7 @@ export default function StatCards({ openingBalance, totalIncome, totalExpense, s
   const data = { openingBalance, totalIncome, totalExpense, systemBalance };
 
   return (
-    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
       {statItems.map((item) => (
         <Card key={item.key}>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
