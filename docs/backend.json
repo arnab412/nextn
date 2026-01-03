@@ -1,0 +1,306 @@
+{
+  "entities": {
+    "Student": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Student",
+      "type": "object",
+      "description": "Represents a student in the school.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the student entity."
+        },
+        "name": {
+          "type": "string",
+          "description": "The student's full name."
+        },
+        "studentId": {
+          "type": "string",
+          "description": "The unique identifier assigned to the student by the school."
+        },
+        "class": {
+          "type": "string",
+          "description": "The student's class or grade level."
+        },
+        "section": {
+          "type": "string",
+          "description": "The student's section within the class."
+        },
+        "parentPhone": {
+          "type": "string",
+          "description": "The phone number of the student's parent or guardian."
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "studentId",
+        "class",
+        "section",
+        "parentPhone"
+      ]
+    },
+    "Income": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Income",
+      "type": "object",
+      "description": "Represents a fee collection or income transaction. Can contain multiple fee types.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the income transaction."
+        },
+        "studentId": {
+          "type": "string",
+          "description": "Reference to the Student. (Relationship: Student 1:N Income)"
+        },
+        "studentName": {
+          "type": "string",
+          "description": "The name of the student associated with the income."
+        },
+        "class": {
+          "type": "string",
+          "description": "The class of the student associated with the income."
+        },
+        "section": {
+          "type": "string",
+          "description": "The section of the student associated with the income."
+        },
+        "fees": {
+          "type": "object",
+          "description": "An object containing different types of fees collected.",
+          "properties": {
+            "Tuition": { "type": "number" },
+            "Exam": { "type": "number" },
+            "Fine": { "type": "number" },
+            "Admission": { "type": "number" }
+          }
+        },
+        "totalAmount": {
+          "type": "number",
+          "description": "The total amount of the income."
+        },
+        "date": {
+          "type": "string",
+          "description": "The date of the income transaction.",
+          "format": "date-time"
+        },
+        "timestamp": {
+          "type": "string",
+          "description": "The timestamp of when the income was recorded.",
+          "format": "date-time"
+        },
+        "collectedBy": {
+          "type": "string",
+          "description": "Reference to the User who collected the income. (Relationship: User 1:N Income)"
+        }
+      },
+      "required": [
+        "id",
+        "studentId",
+        "studentName",
+        "class",
+        "section",
+        "fees",
+        "totalAmount",
+        "date",
+        "timestamp",
+        "collectedBy"
+      ]
+    },
+    "Expense": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Expense",
+      "type": "object",
+      "description": "Represents an office expense payment.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the expense transaction."
+        },
+        "category": {
+          "type": "string",
+          "description": "The category of the expense (e.g., Salary, Maintenance, Electricity, Entertainment)."
+        },
+        "payTo": {
+          "type": "string",
+          "description": "The name of the recipient of the payment."
+        },
+        "voucherNo": {
+          "type": "string",
+          "description": "The voucher number associated with the expense."
+        },
+        "amount": {
+          "type": "number",
+          "description": "The amount of the expense."
+        },
+        "date": {
+          "type": "string",
+          "description": "The date of the expense transaction.",
+          "format": "date-time"
+        },
+        "description": {
+          "type": "string",
+          "description": "A description of the expense."
+        },
+        "timestamp": {
+          "type": "string",
+          "description": "The timestamp of when the expense was recorded.",
+          "format": "date-time"
+        },
+        "paymentMode": {
+          "type": "string",
+          "description": "The mode of payment (e.g., Cash, Bank)."
+        }
+      },
+      "required": [
+        "id",
+        "category",
+        "payTo",
+        "voucherNo",
+        "amount",
+        "date",
+        "description",
+        "timestamp",
+        "paymentMode"
+      ]
+    },
+    "DailyRegister": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "DailyRegister",
+      "type": "object",
+      "description": "Represents the daily cash register data.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the daily register (YYYY-MM-DD)."
+        },
+        "date": {
+          "type": "string",
+          "description": "The date of the register.",
+          "format": "date"
+        },
+        "openingBalance": {
+          "type": "number",
+          "description": "The opening cash balance for the day, carried over from the previous day's system balance."
+        },
+        "totalIncome": {
+          "type": "number",
+          "description": "The total income for the day."
+        },
+        "totalExpense": {
+          "type": "number",
+          "description": "The total expenses for the day."
+        },
+        "systemBalance": {
+          "type": "number",
+          "description": "The calculated cash balance based on opening balance, income, and expenses."
+        }
+      },
+      "required": [
+        "id",
+        "date",
+        "openingBalance",
+        "totalIncome",
+        "totalExpense",
+        "systemBalance"
+      ]
+    },
+    "User": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "User",
+      "type": "object",
+      "description": "Represents a user of the system.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the user entity."
+        },
+        "email": {
+          "type": "string",
+          "description": "The user's email address.",
+          "format": "email"
+        }
+      },
+      "required": [
+        "id",
+        "email"
+      ]
+    }
+  },
+  "auth": {
+    "providers": [
+      "password",
+      "anonymous"
+    ]
+  },
+  "firestore": {
+    "structure": [
+      {
+        "path": "/students/{studentId}",
+        "definition": {
+          "entityName": "Student",
+          "schema": {
+            "$ref": "#/backend/entities/Student"
+          },
+          "description": "Stores student information.",
+          "params": [
+            {
+              "name": "studentId",
+              "description": "The unique identifier for the student."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/incomes/{incomeId}",
+        "definition": {
+          "entityName": "Income",
+          "schema": {
+            "$ref": "#/backend/entities/Income"
+          },
+          "description": "Stores income data. Includes denormalized 'studentName', 'class', and 'section' fields for authorization independence and the id of the user who collected the income in 'collectedBy'.",
+          "params": [
+            {
+              "name": "incomeId",
+              "description": "The unique identifier for the income record."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/expenses/{expenseId}",
+        "definition": {
+          "entityName": "Expense",
+          "schema": {
+            "$ref": "#/backend/entities/Expense"
+          },
+          "description": "Stores expense data.",
+          "params": [
+            {
+              "name": "expenseId",
+              "description": "The unique identifier for the expense record."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/daily_registers/{registerId}",
+        "definition": {
+          "entityName": "DailyRegister",
+          "schema": {
+            "$ref": "#/backend/entities/DailyRegister"
+          },
+          "description": "Stores daily cash register data. The register ID is the date (YYYY-MM-DD).",
+          "params": [
+            {
+              "name": "registerId",
+              "description": "The date (YYYY-MM-DD) for the daily register."
+            }
+          ]
+        }
+      }
+    ],
+    "reasoning": "The Firestore data structure is designed to be simple and flat. All authenticated users have access to all collections. The `roles_admin` collection has been removed as it is no longer needed. The `incomes` collection still contains a `collectedBy` field to track which user created the transaction."
+  }
+}
