@@ -44,7 +44,7 @@ export default function AppHeader() {
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="relative h-10 w-10 rounded-full">
               <Avatar className="h-10 w-10">
-                <AvatarImage src={user?.photoURL || undefined} alt={user?.displayName || ''} />
+                <AvatarImage src={user?.photoURL || '/images/cartoon-avatar.png'} alt={user?.displayName || 'User Avatar'} />
                 <AvatarFallback>
                   {getInitials(user?.displayName)}
                 </AvatarFallback>
